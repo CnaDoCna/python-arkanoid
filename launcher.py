@@ -18,7 +18,7 @@ speed = 10 #można zmieniać
 
 pygame.init()
 gameDisplay = pygame.display.set_mode((screen_size[0], screen_size[1]))
-pygame.display.set_caption('Game - Snake')
+pygame.display.set_caption('Game - Arkanoid')
 font1 = pygame.font.SysFont('Arial', 20)
 font2 = pygame.font.SysFont('Arial', 40)
 font3 = pygame.font.SysFont('Arialbold', 30)
@@ -48,13 +48,25 @@ def playAgainButton():
     click = pygame.mouse.get_pressed()
 
     button_text = font3.render("Play Again", False, BLUE)
-    button_rect = button_text.get_rect(center = (screen_size[0]/2, screen_size[1]*(9/10)))
+    button_rect = button_text.get_rect(center = (screen_size[0]/2, screen_size[1]*(8/10)))
 
     if mouse[0] > button_rect[0] and mouse[0] < (button_rect[0]+button_text.get_width()) and mouse[1] > button_rect[1] and  mouse[1] < (button_rect[1]+button_text.get_height()):
         pygame.draw.rect(gameDisplay, WHITE, button_rect)
         if click[0]:
             Game()
+    gameDisplay.blit(button_text, button_rect)
 
+def exitButton():
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
+    button_text = font3.render("Exit", False, BLUE)
+    button_rect = button_text.get_rect(center = (screen_size[0]/2, screen_size[1]*(9/10)))
+
+    if mouse[0] > button_rect[0] and mouse[0] < (button_rect[0]+button_text.get_width()) and mouse[1] > button_rect[1] and  mouse[1] < (button_rect[1]+button_text.get_height()):
+        pygame.draw.rect(gameDisplay, WHITE, button_rect)
+        if click[0]:
+            quit()
     gameDisplay.blit(button_text, button_rect)
 
 
@@ -126,6 +138,7 @@ def Game():
             gameDisplay.fill(RED)
             scoresDisplay(pkt)
             playAgainButton()
+            exitButton()
 
             for position in blocks_positions:
                 block = pygame.draw.rect(gameDisplay, WHITE, (position[0], position[1], block_size[0], block_size[1]))
